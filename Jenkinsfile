@@ -6,17 +6,16 @@ pipeline {
     }
     
     stages {
-        stage('Clonar repositorio..') {
+        stage('Detectar commits en mi repositorio') {
             steps {
-                echo 'Iniciando el clonado del repositorio...'
-                git branch: 'develop', url: 'https://github.com/fercdev/jenkins-pipeline-txt.git'
-            }
-        }
+               script {
+                def mensajeDelCommit = sh(
+                    script: "git log -1 --pretty=%B",
+                    returnStdout: true
+                ).trim()
 
-        stage('Listar estructura de proyecto..') {
-            steps {
-                echo 'Listar la estructura de mi repositorio...'
-                sh 'ls -R'
+                echo "El ultimo commit tiene el siguiente mensaje: ${mensajeDelCommit}"
+               }
             }
         }
     }
