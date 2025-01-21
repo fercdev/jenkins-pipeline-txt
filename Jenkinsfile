@@ -6,16 +6,17 @@ pipeline {
     }
     
     stages {
-        stage('Detectar commits en mi repositorio') {
+        stage('Clonar repositorio...') {
             steps {
-               script {
-                def mensajeDelCommit = sh(
-                    script: "git log -1 --pretty=%B",
-                    returnStdout: true
-                ).trim()
+                echo 'Clonando mi repositorio'
+                git branch: 'develop', url 'https://github.com/fercdev/jenkins-pipeline-txt.git'
+            }
+        }
 
-                echo "El ultimo commit tiene el siguiente mensaje: ${mensajeDelCommit}"
-               }
+        stage('Listar estructura...') {
+            steps {
+                echo 'Listando todas las carpetas y archivos...'
+                sh 'ls -la'
             }
         }
     }
