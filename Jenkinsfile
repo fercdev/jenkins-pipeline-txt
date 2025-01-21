@@ -19,5 +19,19 @@ pipeline {
                 sh 'ls -la'
             }
         }
+
+        stage('Visualizar archivo en especifico...') {
+            steps {
+                script {
+                    def archivoABuscar = 'helloworld.txt'
+                    if (fileExists(archivoABuscar)) {
+                        echo "Archivo ${archivoABuscar} ha sido encontrado y se tiene su contenido"
+                        sh "cat ${archivoABuscar}"
+                    } else {
+                        echo "Archivo ${archivoABuscar} no existe"
+                    }
+                }
+            }
+        }
     }
 }
